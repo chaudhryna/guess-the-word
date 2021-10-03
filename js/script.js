@@ -41,6 +41,13 @@ const showGuessedLetters = function(guessedLetters) {
     guessedLettersUL.innerHTML = guessedLetters.join(' ');
 };
 
+const checkIfWin = function() {
+    if (wordInProgress.innerText === word.toUpperCase()) {
+        message.classList.add("win");
+        message.innerHTML = "You guessed correct the word! Congrats!";
+    }
+}
+
 const updateWordInProgress = function(guessedLetters) {
     let wordUpper = word.toUpperCase();
     const wordArray = wordUpper.split("");
@@ -55,6 +62,7 @@ const updateWordInProgress = function(guessedLetters) {
         }
     }
     wordInProgress.innerHTML = updatedArray.join('');
+    checkIfWin();
 };
 
 const makeGuess = function(validLetterInput) {
