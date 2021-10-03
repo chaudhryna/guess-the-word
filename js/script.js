@@ -36,22 +36,43 @@ const validateInput = function(letterGuess) {
     }
 };
 
+const showGuessedLetters = function(guessedLetters) {
+    guessedLettersUL.innerHTML = "";
+    guessedLettersUL.innerHTML = guessedLetters.join(' ');
+};
+
+const updateWordInProgress = function(guessedLetters) {
+    let wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    const updatedArray = [];
+    
+    // Check if wordArray contains any letters of guessedLetters
+    for (const letter of wordArray) {
+        if (guessedLetters.includes(letter)) {
+            updatedArray.push(letter);
+        } else {
+            updatedArray.push("●");
+        }
+    }
+    wordInProgress.innerHTML = updatedArray.join('');
+};
+
 const makeGuess = function(validLetterInput) {
     let validLetterUpper = validLetterInput.toUpperCase();
     if (guessedLetters.includes(validLetterUpper)) {
         message.innerHTML = "You've guessed that letter already.  Try another."
     } else {
         guessedLetters.push(validLetterUpper);
-        console.log(guessedLetters);
+        showGuessedLetters(guessedLetters);
+        updateWordInProgress(guessedLetters);
     }
-}
+};
 
 guessBtn.addEventListener('click', function(e) {
     e.preventDefault();
     let letterGuess = letterInput.value;
     let validLetterInput = validateInput(letterGuess);
     if (validLetterInput) {
-        console.log(validLetterInput);
         makeGuess(validLetterInput);
     }
     letterInput.value = "";
