@@ -1,15 +1,28 @@
 const guessedLettersUL = document.querySelector(".guessed-letters");
 const guessBtn = document.querySelector(".guess");
-let letterInput = document.querySelector(".letter");
 const wordInProgress = document.querySelector(".word-in-progress");
 const remaining = document.querySelector(".remaining");
 const remainingNumber = document.querySelector(".remaining > span");
 const message = document.querySelector(".message");
 const playAgainBtn = document.querySelector(".play-again");
-let remainingGuesses = 8;
-
-const word = "magnolia";
 const guessedLetters = [];
+let letterInput = document.querySelector(".letter");
+let remainingGuesses = 8;
+let word = "magnolia";
+
+const getWord = async function () {
+  const res = await fetch(
+    "https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt"
+  );
+  const words = await res.text();
+  const wordArray = words.split("\n");
+  const randomIndex = Math.floor(Math.random() * wordArray.length);
+  const randomWord = wordArray[randomIndex];
+  word = randomWord.trim();
+  console.log(word);
+  wordsInProgressText(word);
+};
+
 
 const wordsInProgressText = function(word) {
     let letterArray = [];
@@ -17,13 +30,12 @@ const wordsInProgressText = function(word) {
         letterArray.push("●")
     }
     wordInProgress.innerHTML = letterArray.join('');
-}
+};
 
-wordsInProgressText(word);
+getWord();
 
 const validateInput = function(letterGuess) {
     const acceptedLetter = /[a-zA-Z]/;
-
     if (letterGuess === "") {
         message.innerHTML = "Please enter a letter from A to Z"
     } else if (letterGuess.length > 1) {
