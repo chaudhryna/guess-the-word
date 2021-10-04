@@ -19,7 +19,6 @@ const getWord = async function () {
   const randomIndex = Math.floor(Math.random() * wordArray.length);
   const randomWord = wordArray[randomIndex];
   word = randomWord.trim();
-  console.log(word);
   wordsInProgressText(word);
 };
 
@@ -138,4 +137,4 @@ playAgainBtn.addEventListener('click', function(e) {
     guessedLettersUL.classList.remove("hide");
     playAgainBtn.classList.add("hide");
     getWord();
-})
+});
