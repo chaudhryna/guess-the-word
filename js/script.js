@@ -8,7 +8,7 @@ const playAgainBtn = document.querySelector(".play-again");
 let guessedLetters = [];
 let letterInput = document.querySelector(".letter");
 let remainingGuesses = 8;
-let word = "magnolia";
+let word;
 
 const getWord = async function () {
   const res = await fetch(
